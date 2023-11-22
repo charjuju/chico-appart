@@ -21,7 +21,7 @@ function ThinderCard() {
   const [velocityCard, setVelocityCard] = useState(null)
 //  const [cardList, setCardList] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
   const [cardListIndex, setCardListIndex] = useState(0)
-  const cardList = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+  const cardList = ["76 Rue Leberthon", "81 Cours De La Marne", "36 Cours De La Marne", "123 Cours des Pouler", "Aie Aie Aie ce que j'ai mal au cul", "4 Impasse Rateaux", "Bha Bha", "YEEE", "ZIZIZ", "Puifff"]
 
   const x = useMotionValue(0);
   const xInput = [-100, 0, 100];
@@ -73,7 +73,7 @@ function ThinderCard() {
             {cardList !== null && cardList.length > cardListIndex ?
               <div style={{ display: "flex", flexDirection: 'column', height: '100%' }}>
                 <div style={{ height: '100%', backgroundColor: 'gray', margin: '10px', borderRadius: '10px', display: 'flex', flexDirection: 'column-reverse', padding: '10px' }}>
-                  <h1>76 RUE Leberthon {cardList[cardListIndex]}</h1>
+                  <h1>{cardList[cardListIndex]}</h1>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-around', marginBottom: '10px' }}>
                   <img onClick={() => likeLappartement()} style={{ height: '52px' }} src="noo.svg" alt="Like"></img>
