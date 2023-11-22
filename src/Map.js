@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import L from 'leaflet'
-import customIcon from './icone.svg'
 import 'leaflet/dist/leaflet.css'
 
 const Map = ({ pointsData, handleMarkerClick }) => {

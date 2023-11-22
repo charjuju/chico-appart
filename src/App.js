@@ -19,16 +19,17 @@ const pointMap = [{
 
 function ThinderCard() {
   const [velocityCard, setVelocityCard] = useState(null)
-  const [cardList, setCardList] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+//  const [cardList, setCardList] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
   const [cardListIndex, setCardListIndex] = useState(0)
+  const cardList = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
   const x = useMotionValue(0);
   const xInput = [-100, 0, 100];
-  const color = useTransform(x, xInput, [
-    "rgb(211, 9, 225)",
-    "rgb(68, 0, 255)",
-    "rgb(3, 209, 0)"
-  ]);
+//  const color = useTransform(x, xInput, [
+//    "rgb(211, 9, 225)",
+//    "rgb(68, 0, 255)",
+//    "rgb(3, 209, 0)"
+//  ]);
   const background = useTransform(x, xInput, [
     "linear-gradient(180deg, #ff008c 0%, rgb(211, 9, 225) 100%)",
     "linear-gradient(180deg,  #0f6ed6 0%, rgb(255, 255, 255) 100%)",
@@ -54,7 +55,7 @@ function ThinderCard() {
       }
     }
 
-  }, [velocityCard])
+  }, [velocityCard, cardListIndex])
 
 
 
