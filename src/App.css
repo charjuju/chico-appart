@@ -1,0 +1,62 @@
+body {
+  --black: #000000;
+  --ash-black: #222;
+  --white: #fafafa;
+  --sky: #00ccff;
+  --green: #22dddd;
+  --blue: #1300ff;
+  --dusk: #6600ff;
+  --purple: #9900ff;
+  --pink: #ff0066;
+  --red: #fe0222;
+  --orange: #fd7702;
+  --yellow: #ffbb00;
+
+  --background: var(--white);
+  --accent: var(--blue);
+
+  margin: 0;
+  padding: 0;
+  background-color: var(--background);
+  color: var(--accent);
+  padding-bottom: 100px;
+  overflow: hidden;
+}
+
+.box {
+  width: 80vw;
+  min-width: 300px;
+  min-height: 500px;
+  height: 80vh;
+  border-radius: 10px;
+  background: var(--accent);
+  background: white;
+  position: absolute;
+}
+
+.conteneur-navbar {
+  position: fixed;
+  display: flex;
+  justify-content: space-around;
+  width: 100vw;
+  background-color: white;
+}
+
+.pc-display {
+  display: block;
+}
+
+.phone-display {
+  display: none;
+}
+
+@media (max-width: 1000px) {
+  .pc-display {
+    display: none;
+  }
+
+  .phone-display {
+    display: block;
+  }
+  
+}
