@@ -53,6 +53,7 @@ function ThinderCard() {
       } else if (velocityCard.offset.x >= 200) {
         setCardListIndex(cardListIndex + 1)
       }
+      setVelocityCard(null)
     }
 
   }, [velocityCard, cardListIndex])
