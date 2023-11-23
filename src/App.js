@@ -51,7 +51,7 @@ function App() {
           <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: 'white' }}>
             <NavBar />
           </div>
-          <div className="container">
+          <div style={{height: '100vh', overflow: 'scroll'}}>
             <Routes>
               <Route path="/" element={<ThinderCard justAppartementFile={justAppartementFile} />} />
               <Route path="/Map" element={<Map pointsData={justAppartementFile} handleMarkerClick={console.log} />} />
