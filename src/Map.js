@@ -14,8 +14,8 @@ const Map = ({ pointsData, handleMarkerClick }) => {
   }
 
   return (
-    <div style={{ margin: '30px', height: '85vh', display: 'flex', justifyContent: 'space-around', paddingTop: '50px', flexWrap: 'wrap' }}>
-      <div style={{ width: '40vw' }}>
+    <div style={{ margin: '30px', height: '85vh', display: 'flex', justifyContent: 'space-around', paddingTop: '50px', flexWrap: 'wrap', borderBlockEndColor: 'green'}}>
+      <div style={{ width: '40vw', minWidth: '375px', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
         <MapContainer
           center={[44.8378, -0.5792]}
           zoom={13}
@@ -23,7 +23,6 @@ const Map = ({ pointsData, handleMarkerClick }) => {
           ref={mapRef}
         >
           <TileLayer url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' />
-          {/* Ajouter les marqueurs ici */}
           {pointsData &&
             pointsData.map((point, index) => (
               <div data-cy='marker' key={index}>
@@ -38,7 +37,7 @@ const Map = ({ pointsData, handleMarkerClick }) => {
               </div>
             ))}
         </MapContainer>
-        <div style={{ minWidth: '300px', width: '40vw', height: '50vh', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ minWidth: '300px', width: '40vw', height: '50vh', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
           <div style={{ width: '100%', height: '90%', backgroundColor: 'gray', borderRadius: '10px' }}>
             <h1>LES VIDEO DE DEHORE ET DE L APPARTEMENT</h1>
           </div>
