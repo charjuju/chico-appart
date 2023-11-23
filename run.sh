@@ -1,4 +1,3 @@
 #!/bin/bash
 
-./jsonMaker.sh ./public
-npm run build
+./jsonMaker.sh ./public/appartement

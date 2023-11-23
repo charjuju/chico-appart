@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import Map from './Map'
 import './App.css';
+import { getDossiers , getImageOfAppartement} from './services'
 
 /* VARIABLE A SUPPRE */
 
@@ -17,19 +18,18 @@ const pointMap = [{
 /* VARIABLE A SUPPRE */
 
 
-function ThinderCard() {
+function ThinderCard({ justAppartementFile }) {
   const [velocityCard, setVelocityCard] = useState(null)
-//  const [cardList, setCardList] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
   const [cardListIndex, setCardListIndex] = useState(0)
-  const cardList = ["76 Rue Leberthon", "81 Cours De La Marne", "36 Cours De La Marne", "123 Cours des Pouler", "Aie Aie Aie ce que j'ai mal au cul", "4 Impasse Rateaux", "Bha Bha", "YEEE", "ZIZIZ", "Puifff"]
+  const [imgIndexCard, setImgIndexCard] = useState(0)
 
   const x = useMotionValue(0);
   const xInput = [-100, 0, 100];
-//  const color = useTransform(x, xInput, [
-//    "rgb(211, 9, 225)",
-//    "rgb(68, 0, 255)",
-//    "rgb(3, 209, 0)"
-//  ]);
+  //  const color = useTransform(x, xInput, [
+  //    "rgb(211, 9, 225)",
+  //    "rgb(68, 0, 255)",
+  //    "rgb(3, 209, 0)"
+  //  ]);
   const background = useTransform(x, xInput, [
     "linear-gradient(180deg, #ff008c 0%, rgb(211, 9, 225) 100%)",
     "linear-gradient(180deg,  #0f6ed6 0%, rgb(255, 255, 255) 100%)",
@@ -54,6 +54,7 @@ function ThinderCard() {
         setCardListIndex(cardListIndex + 1)
       }
       setVelocityCard(null)
+      setImgIndexCard(0)
     }
 
   }, [velocityCard, cardListIndex])
@@ -70,10 +71,17 @@ function ThinderCard() {
             drag
             onDragEnd={(e, i) => setVelocityCard(i)}
           >
-            {cardList !== null && cardList.length > cardListIndex ?
+            {justAppartementFile !== null && justAppartementFile.length > cardListIndex ?
               <div style={{ display: "flex", flexDirection: 'column', height: '100%' }}>
-                <div style={{ height: '100%', backgroundColor: 'gray', margin: '10px', borderRadius: '10px', display: 'flex', flexDirection: 'column-reverse', padding: '10px' }}>
-                  <h1>{cardList[cardListIndex]}</h1>
+                <div
+                onClick={() => setImgIndexCard(imgIndexCard + 1)}
+                style={{
+                  height: '100%', backgroundColor: 'gray', margin: '10px', borderRadius: '10px', display: 'flex', flexDirection: 'column-reverse', padding: '10px',
+                  backgroundImage: `url('${getImageOfAppartement(justAppartementFile, cardListIndex, imgIndexCard)}')`, // Remplacez par le chemin de votre image
+                  backgroundSize: 'cover', // Ajustez selon vos besoins
+                  backgroundPosition: 'center', // Ajustez selon vos besoins
+                }}>
+                  <h1 style={{color: 'white', backgroundColor: 'rgba(0, 0, 0, 0.4)'}}>{justAppartementFile[cardListIndex].nom}</h1>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-around', marginBottom: '10px' }}>
                   <img onClick={() => likeLappartement()} style={{ height: '52px' }} src="noo.svg" alt="Like"></img>
@@ -101,6 +109,29 @@ function NavBar() {
 }
 
 function App() {
+  //  const [appartementData, setAppartementData] = useState(null);
+  const [justAppartementFile, setJustAppartementFile] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/contenu_du_dossier.json');
+        const data = await response.json();
+
+
+        //        setAppartementData(data.contenu);
+        setJustAppartementFile(getDossiers(data.contenu))
+
+
+        console.log(getDossiers(data.contenu))
+      } catch (error) {
+        console.error('Erreur lors de la récupération des données JSON :', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div>
       <BrowserRouter>
@@ -110,7 +141,7 @@ function App() {
           </div>
           <div className="container">
             <Routes>
-              <Route path="/" element={<ThinderCard />} />
+              <Route path="/" element={<ThinderCard justAppartementFile={justAppartementFile} />} />
               <Route path="/Map" element={<Map pointsData={pointMap} handleMarkerClick={console.log} />} />
             </Routes>
           </div>
