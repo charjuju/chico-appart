@@ -19,34 +19,39 @@ fi
 liste_contenu() {
     local dossier_actuel="$1"
     local indentation="$2"
-    local contenu=()
+    local contenu="\"contenu\": ["
+    local position_content="null"
     
     for element in "$dossier_actuel"/*; do
         local nom=$(basename "$element")
-        local ligne="{"
-        ligne+="\"nom\": \"$nom\","
-        
-        if [ -d "$element" ]; then
-            ligne+="\"type\": \"dossier\","
-            ligne+="\"contenu\": ["
-            ligne+=$(liste_contenu "$element" "$indentation    ")
-            ligne+="]"
+        if [ "$nom" == "position.json" ]; then
+            position_content=$(cat "$element")
         else
-            ligne+="\"type\": \"fichier\""
-        fi
+            local ligne="{"
+            ligne+="\"nom\": \"$nom\","
 
+            if [ -d "$element" ]; then
+                ligne+="\"type\": \"dossier\","
+                ligne+=$(liste_contenu "$element" "$indentation    ")
+                ligne+="]"
+            else
+                ligne+="\"type\": \"fichier\""
+            fi
         ligne+="}"
         contenu+=("$ligne")
+        fi
     done
 
     # Concaténer les éléments de contenu avec des virgules
-    local resultat=""
-    local delim=""
+    local resultat="\"position\":$position_content,"
+    local delim=" "
     for ligne in "${contenu[@]}"; do
         resultat+="$delim$ligne"
         delim=","
+        if [ "$ligne" == "\"contenu\": [" ]; then
+            delim=" "
+        fi
     done
-
     echo "$resultat"
 }
 
@@ -54,7 +59,7 @@ liste_contenu() {
 echo "{" > "./public/$output_json"
 echo '"nom": "appartement",' >> "./public/$output_json"
 echo '"type": "dossier",' >> "./public/$output_json"
-echo '  "contenu": [' >> "./public/$output_json"
+echo ' ' >> "./public/$output_json"
 
 # Appeler la fonction pour lister le contenu récursivement
 contenu_du_dossier=$(liste_contenu "$dossier" "    ")

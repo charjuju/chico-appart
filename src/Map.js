@@ -29,11 +29,11 @@ const Map = ({ pointsData, handleMarkerClick }) => {
               <div data-cy='marker' key={index}>
                 {point.position[0] !== null && point.position[1] !== null &&
                   <Marker
-                    key={index} position={[point.position[0], point.position[1]]} icon={L.icon({ iconUrl: point.ico, iconSize: [40, 40] })} eventHandlers={{
+                    key={index} position={[point.position[0], point.position[1]]} icon={L.icon({ iconUrl: 'apartment-ico.svg', iconSize: [40, 40] })} eventHandlers={{
                       click: () => clickSurIco(index)
                     }}
                   >
-                    <Popup><strong>{point.name}</strong><br />{point.description}</Popup>
+                    <Popup><strong>{point.nom}</strong><br />{point.description}</Popup>
                   </Marker>}
               </div>
             ))}
@@ -42,7 +42,7 @@ const Map = ({ pointsData, handleMarkerClick }) => {
       <div style={{ minWidth: '300px', width: '40vw'}}>
         {pointSelectioner !== null ?
           <div >
-            <h1>{pointsData[pointSelectioner].name}</h1>
+            <h1>{pointsData[pointSelectioner].nom}</h1>
           </div>
           :
           <div>
